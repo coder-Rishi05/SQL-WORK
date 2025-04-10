@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PL/SQL Tutorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <h1>PL/SQL Tutorial</h1>
+        <h3><a class="home" href="index.html">Back to home</a></h3>
+    </header>
+
+    <main>
+        <section>
+            <h2>Topics Under PL/SQL</h2>
+
+            <div class="container plsql-intro">
+                <div class="heading">
+                    <h3>Introduction to PL/SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        PL/SQL stands for <b>Procedural Language extensions to SQL</b>. It is Oracle's procedural
+                        extension of SQL that combines SQL with procedural features of programming languages.
+                    </p>
+
+                    <h4>Advantages of PL/SQL:</h4>
+                    <ul>
+                        <li><b>Block Structure:</b> Organizes code into logical blocks.</li>
+                        <li><b>Error Handling:</b> Provides robust exception handling features.</li>
+                        <li><b>Performance:</b> Reduces communication between applications and database by sending
+                            blocks of SQL at once.</li>
+                        <li><b>Portability:</b> Code is portable across Oracle environments.</li>
+                        <li><b>Reusability:</b> Supports functions, procedures, and packages.</li>
+                    </ul>
+
+                    <h4>PL/SQL Block Structure:</h4>
+                    <pre><code>
+              DECLARE
+                -- variable declarations
+              BEGIN
+                -- executable statements
+              EXCEPTION
+                -- error handling statements
+              END;
+                  </code></pre>
+
+                    <h4>Example:</h4>
+                    <pre><code>
+              DECLARE
+                a NUMBER := 10;
+                b NUMBER := 5;
+                c NUMBER;
+              BEGIN
+                c := a + b;
+                DBMS_OUTPUT.PUT_LINE('Sum is: ' || c);
+              END;
+                  </code></pre>
+
+                    <h4>Output:</h4>
+                    <pre><code>
+              Sum is: 15
+                  </code></pre>
+
+                    <h4>PL/SQL Architecture:</h4>
+                    <p>
+                        The PL/SQL engine is responsible for processing PL/SQL blocks. It can be located in the database
+                        (server-side) or in the application (client-side).
+                    </p>
+                    <ul>
+                        <li><b>PL/SQL Block:</b> Sent to PL/SQL engine for execution.</li>
+                        <li><b>Procedural Statements:</b> Processed by PL/SQL engine.</li>
+                        <li><b>SQL Statements:</b> Sent to SQL engine for execution.</li>
+                        <li><b>Results:</b> Combined and returned to the application.</li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="container plsql-datatypes">
+                <div class="heading">
+                    <h3>PL/SQL Data Types</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        PL/SQL provides a variety of data types to hold different kinds of data. These include scalar
+                        types like numbers and characters, composite types like records and collections, reference
+                        types, and large object types.
+                    </p>
+
+                    <h4>Common PL/SQL Data Types:</h4>
+                    <ul>
+                        <li><b>NUMBER:</b> Used to store numeric values. E.g., <code>salary NUMBER(7,2);</code></li>
+                        <li><b>CHAR:</b> Fixed-length character string. E.g., <code>gender CHAR(1);</code></li>
+                        <li><b>VARCHAR2:</b> Variable-length character string. E.g., <code>name VARCHAR2(50);</code>
+                        </li>
+                        <li><b>DATE:</b> Stores date and time. E.g., <code>dob DATE;</code></li>
+                        <li><b>BOOLEAN:</b> Stores TRUE, FALSE, or NULL. (Only in PL/SQL, not in SQL tables.)</li>
+                        <li><b>LONG:</b> Stores variable-length character data up to 2 GB.</li>
+                    </ul>
+
+                    <h4>Example:</h4>
+                    <pre><code>
+              DECLARE
+                emp_id       NUMBER(5);
+                emp_name     VARCHAR2(30);
+                emp_dob      DATE;
+                is_active    BOOLEAN;
+              BEGIN
+                emp_id := 101;
+                emp_name := 'Ravi Kumar';
+                emp_dob := TO_DATE('1999-05-23', 'YYYY-MM-DD');
+                is_active := TRUE;
+              
+                DBMS_OUTPUT.PUT_LINE('ID: ' || emp_id);
+                DBMS_OUTPUT.PUT_LINE('Name: ' || emp_name);
+                DBMS_OUTPUT.PUT_LINE('DOB: ' || emp_dob);
+                IF is_active THEN
+                  DBMS_OUTPUT.PUT_LINE('Status: Active');
+                ELSE
+                  DBMS_OUTPUT.PUT_LINE('Status: Inactive');
+                END IF;
+              END;
+                  </code></pre>
+
+                    <h4>Output:</h4>
+                    <pre><code>
+              ID: 101
+              Name: Ravi Kumar
+              DOB: 23-MAY-99
+              Status: Active
+                  </code></pre>
+                </div>
+            </div>
+
+
+            <div class="container plsql-variables">
+                <div class="heading">
+                    <h3>Variables and Constants, Scope and Visibility</h3>
+                </div>
+
+                <div class="content">
+                    <h4>Variables in PL/SQL:</h4>
+                    <p>
+                        Variables are named memory locations used to store data temporarily during the execution of a
+                        PL/SQL block.
+                    </p>
+                    <ul>
+                        <li>Declared in the <code>DECLARE</code> section of a PL/SQL block.</li>
+                        <li>Must have a valid data type.</li>
+                        <li>Can be assigned values using the assignment operator <code>:=</code>.</li>
+                    </ul>
+
+                    <h4>Constants in PL/SQL:</h4>
+                    <p>
+                        Constants are similar to variables, but once assigned a value, it cannot be changed.
+                    </p>
+                    <ul>
+                        <li>Use the keyword <code>CONSTANT</code> while declaring.</li>
+                        <li>Must be initialized at the time of declaration.</li>
+                    </ul>
+
+                    <pre><code>
+              DECLARE
+                pi CONSTANT NUMBER := 3.14159;
+                radius NUMBER := 5;
+                area NUMBER;
+              BEGIN
+                area := pi * radius * radius;
+                DBMS_OUTPUT.PUT_LINE('Area of circle: ' || area);
+              END;
+                  </code></pre>
+
+                    <h4>Output:</h4>
+                    <pre><code>
+              Area of circle: 78.53975
+                  </code></pre>
+
+                    <h4>Scope and Visibility:</h4>
+                    <p>
+                        Scope determines where a variable can be accessed. PL/SQL supports nested blocks, and variables
+                        follow these rules:
+                    </p>
+                    <ul>
+                        <li><b>Local Scope:</b> Variable is accessible only within the block in which it is declared.
+                        </li>
+                        <li><b>Global Scope:</b> Variable declared in an outer block is accessible in its inner blocks
+                            (unless shadowed).</li>
+                        <li><b>Shadowing:</b> An inner block can declare a variable with the same name, hiding the outer
+                            one.</li>
+                    </ul>
+
+                    <h4>Example of Variable Scope:</h4>
+                    <pre><code>
+              DECLARE
+                msg VARCHAR2(20) := 'Outer Block';
+              BEGIN
+                DECLARE
+                  msg VARCHAR2(20) := 'Inner Block';
+                BEGIN
+                  DBMS_OUTPUT.PUT_LINE(msg); -- Inner Block
+                END;
+                
+                DBMS_OUTPUT.PUT_LINE(msg); -- Outer Block
+              END;
+                  </code></pre>
+
+                    <h4>Output:</h4>
+                    <pre><code>
+              Inner Block
+              Outer Block
+                  </code></pre>
+                </div>
+            </div>
+
+            <div class="container plsql-assignments">
+                <div class="heading">
+                    <h3>Assignments and Expressions</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        <b>Assignment</b> in PL/SQL is done using the <code>:=</code> operator. This assigns a value
+                        (which can be a constant, variable, or expression) to a variable.
+                    </p>
+
+                    <h4>Syntax:</h4>
+                    <pre><code>
+              variable_name := value;
+                  </code></pre>
+
+                    <h4>Example:</h4>
+                    <pre><code>
+              DECLARE
+                a NUMBER := 10;
+                b NUMBER := 5;
+                sum NUMBER;
+              BEGIN
+                sum := a + b;
+                DBMS_OUTPUT.PUT_LINE('Sum is: ' || sum);  -- Output: Sum is: 15
+              END;
+                  </code></pre>
+
+                    <p><b>Things to Remember:</b></p>
+                    <ul>
+                        <li>The variable must be declared before assignment.</li>
+                        <li>Data types must be compatible.</li>
+                        <li>Assignments can also be made during declaration.</li>
+                    </ul>
+
+                    <h4>Expressions in PL/SQL</h4>
+                    <p>
+                        An <b>expression</b> is a combination of values, operators, and functions that return a single
+                        value.
+                    </p>
+
+                    <p><b>Types of Expressions:</b></p>
+                    <ul>
+                        <li><b>Arithmetic:</b> a + b, salary * 12</li>
+                        <li><b>Character:</b> 'Hello ' || name</li>
+                        <li><b>Boolean:</b> age &gt; 18 AND status = 'Active'</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container plsql-precedence">
+                <div class="heading">
+                    <h3>Operator Precedence</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        <b>Operator precedence</b> determines the order in which operations are evaluated in an
+                        expression.
+                    </p>
+
+                    <h4>Order of Precedence (Highest to Lowest):</h4>
+                    <table border="1" cellpadding="8" cellspacing="0">
+                        <tr>
+                            <th>Precedence Level</th>
+                            <th>Operators</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td><code>**</code></td>
+                            <td>Exponentiation</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td><code>+</code>, <code>-</code></td>
+                            <td>Unary plus, minus</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td><code>*</code>, <code>/</code></td>
+                            <td>Multiplication and Division</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td><code>+</code>, <code>-</code></td>
+                            <td>Addition and Subtraction</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td><code>||</code></td>
+                            <td>String Concatenation</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td><code>=</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>,
+                                <code>&gt;=</code>, <code>&lt;=</code></td>
+                            <td>Comparison Operators</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td><code>NOT</code></td>
+                            <td>Logical NOT</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td><code>AND</code></td>
+                            <td>Logical AND</td>
+                        </tr>
+                        <tr>
+                            <td>9</td>
+                            <td><code>OR</code></td>
+                            <td>Logical OR</td>
+                        </tr>
+                    </table>
+
+                    <h4>Example:</h4>
+                    <pre><code>
+              DECLARE
+                result NUMBER;
+              BEGIN
+                result := 10 + 5 * 2;
+                DBMS_OUTPUT.PUT_LINE('Result: ' || result); -- Output: Result: 20
+              END;
+                  </code></pre>
+
+                    <h4>Using Parentheses for Clarity:</h4>
+                    <pre><code>
+              result := (10 + 5) * 2;  -- Now addition happens first
+                  </code></pre>
+                </div>
+            </div>
+
+            <div class="container plsql-control">
+                <div class="heading">
+                    <h3>Conditional and Iterative Control</h3>
+                </div>
+
+                <div class="content">
+                    <h4>Conditional Control (IF Statements)</h4>
+                    <p>
+                        PL/SQL allows conditional execution of code blocks using <b>IF statements</b>. These are used to
+                        perform actions based on conditions.
+                    </p>
+
+                    <h5>Types of IF Statements:</h5>
+                    <ul>
+                        <li><b>Simple IF:</b> Executes a block if the condition is true.</li>
+                        <li><b>IF-THEN-ELSE:</b> Executes one block if true, another if false.</li>
+                        <li><b>IF-THEN-ELSIF:</b> Allows multiple conditional checks.</li>
+                    </ul>
+
+                    <h5>Examples:</h5>
+                    <pre><code>
+              -- Simple IF
+              IF salary &gt; 5000 THEN
+                bonus := 1000;
+              END IF;
+              
+              -- IF-THEN-ELSE
+              IF salary &gt; 5000 THEN
+                bonus := 1000;
+              ELSE
+                bonus := 500;
+              END IF;
+              
+              -- IF-THEN-ELSIF
+              IF salary &gt; 10000 THEN
+                bonus := 2000;
+              ELSIF salary &gt; 5000 THEN
+                bonus := 1000;
+              ELSE
+                bonus := 500;
+              END IF;
+                  </code></pre>
+
+                    <h4>Iterative Control (Loops)</h4>
+                    <p>
+                        PL/SQL supports multiple looping constructs to repeat a set of statements:
+                    </p>
+
+                    <h5>1. Basic LOOP</h5>
+                    <p>A loop that runs infinitely unless explicitly exited using the EXIT statement.</p>
+                    <pre><code>
+              LOOP
+                -- statements
+                EXIT WHEN condition;
+              END LOOP;
+                  </code></pre>
+
+                    <h5>2. WHILE LOOP</h5>
+                    <p>Executes statements while the condition is true.</p>
+                    <pre><code>
+              WHILE counter &lt;= 5 LOOP
+                DBMS_OUTPUT.PUT_LINE(counter);
+                counter := counter + 1;
+              END LOOP;
+                  </code></pre>
+
+                    <h5>3. FOR LOOP</h5>
+                    <p>Executes a block a specific number of times with automatic counter management.</p>
+                    <pre><code>
+              FOR i IN 1..5 LOOP
+                DBMS_OUTPUT.PUT_LINE('Iteration: ' || i);
+              END LOOP;
+                  </code></pre>
+
+                    <p><b>EXIT and CONTINUE Statements:</b></p>
+                    <ul>
+                        <li><b>EXIT:</b> Terminates the loop.</li>
+                        <li><b>EXIT WHEN:</b> Exits when a condition is true.</li>
+                        <li><b>CONTINUE:</b> Skips remaining code in the current iteration and proceeds to the next.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container plsql-cursors">
+                <div class="heading">
+                    <h3>Cursor Management in PL/SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        A <b>cursor</b> is a pointer to the context area created by Oracle to process SQL statements. It
+                        allows row-by-row processing of query results.
+                        PL/SQL supports two types of cursors:
+                    </p>
+
+                    <h4>Types of Cursors:</h4>
+                    <ul>
+                        <li><b>Implicit Cursor:</b> Automatically created by Oracle when an SQL statement is executed.
+                            Used for single row queries (e.g., SELECT INTO).</li>
+                        <li><b>Explicit Cursor:</b> Defined by the programmer for processing multi-row queries manually.
+                        </li>
+                    </ul>
+
+                    <h4>Cursor Attributes:</h4>
+                    <ul>
+                        <li><b>%FOUND:</b> Returns TRUE if the last fetch returned a row.</li>
+                        <li><b>%NOTFOUND:</b> Returns TRUE if the last fetch did not return a row.</li>
+                        <li><b>%ROWCOUNT:</b> Returns the number of rows fetched so far.</li>
+                        <li><b>%ISOPEN:</b> Returns TRUE if the cursor is open.</li>
+                    </ul>
+
+                    <h4>Explicit Cursor Lifecycle:</h4>
+                    <ol>
+                        <li><b>DECLARE</b> the cursor with a SELECT statement.</li>
+                        <li><b>OPEN</b> the cursor to establish the result set.</li>
+                        <li><b>FETCH</b> rows from the cursor into variables.</li>
+                        <li><b>CLOSE</b> the cursor to release resources.</li>
+                    </ol>
+
+                    <h4>Example of Explicit Cursor:</h4>
+                    <pre><code>
+              DECLARE
+                CURSOR emp_cursor IS
+                  SELECT emp_id, emp_name FROM employees;
+                v_id employees.emp_id%TYPE;
+                v_name employees.emp_name%TYPE;
+              BEGIN
+                OPEN emp_cursor;
+                LOOP
+                  FETCH emp_cursor INTO v_id, v_name;
+                  EXIT WHEN emp_cursor%NOTFOUND;
+                  DBMS_OUTPUT.PUT_LINE('ID: ' || v_id || ', Name: ' || v_name);
+                END LOOP;
+                CLOSE emp_cursor;
+              END;
+                  </code></pre>
+
+                    <h4>Cursor FOR Loop:</h4>
+                    <p>
+                        A simpler way to handle explicit cursors without explicitly opening, fetching, and closing the
+                        cursor.
+                    </p>
+                    <pre><code>
+              FOR emp_rec IN (SELECT emp_id, emp_name FROM employees) LOOP
+                DBMS_OUTPUT.PUT_LINE('ID: ' || emp_rec.emp_id || ', Name: ' || emp_rec.emp_name);
+              END LOOP;
+                  </code></pre>
+
+                    <h4>Advantages of Using Cursors:</h4>
+                    <ul>
+                        <li>Provides control over row-by-row processing.</li>
+                        <li>Helps handle complex business logic for each row.</li>
+                        <li>Cursor FOR loops simplify syntax and reduce errors.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container plsql-exception-handling">
+                <div class="heading">
+                    <h3>Exception Handling in PL/SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        Exception handling in PL/SQL allows you to gracefully handle errors and unexpected events that
+                        occur during program execution.
+                        Exceptions can be predefined (system-defined) or user-defined.
+                    </p>
+
+                    <h4>Types of Exceptions:</h4>
+                    <ul>
+                        <li><b>Predefined Exceptions:</b> Automatically raised by the runtime engine for common errors.
+                            Example: <code>NO_DATA_FOUND</code>, <code>TOO_MANY_ROWS</code>, <code>ZERO_DIVIDE</code>,
+                            etc.</li>
+                        <li><b>User-defined Exceptions:</b> Declared explicitly by the programmer using the
+                            <code>EXCEPTION</code> keyword.</li>
+                    </ul>
+
+                    <h4>Exception Handling Syntax:</h4>
+                    <pre><code>
+              BEGIN
+                -- executable statements
+              EXCEPTION
+                WHEN exception_name THEN
+                  -- error handling statements
+                WHEN OTHERS THEN
+                  -- handles any other exceptions
+              END;
+                  </code></pre>
+
+                    <h4>Example 1: Handling a Predefined Exception</h4>
+                    <pre><code>
+              DECLARE
+                v_num NUMBER := 10;
+                v_den NUMBER := 0;
+                v_result NUMBER;
+              BEGIN
+                v_result := v_num / v_den;
+                DBMS_OUTPUT.PUT_LINE('Result is: ' || v_result);
+              EXCEPTION
+                WHEN ZERO_DIVIDE THEN
+                  DBMS_OUTPUT.PUT_LINE('Error: Division by zero is not allowed.');
+              END;
+                  </code></pre>
+
+                    <h4>Example 2: User-defined Exception</h4>
+                    <pre><code>
+              DECLARE
+                insufficient_salary EXCEPTION;
+                v_salary NUMBER := 2000;
+              BEGIN
+                IF v_salary &lt; 3000 THEN
+                  RAISE insufficient_salary;
+                END IF;
+              
+                DBMS_OUTPUT.PUT_LINE('Salary is sufficient.');
+              
+              EXCEPTION
+                WHEN insufficient_salary THEN
+                  DBMS_OUTPUT.PUT_LINE('Error: Salary is below minimum threshold.');
+              END;
+                  </code></pre>
+
+                    <h4>Important Exception Keywords:</h4>
+                    <ul>
+                        <li><code>RAISE</code>: Used to explicitly raise an exception.</li>
+                        <li><code>WHEN</code>: Specifies the type of exception to handle.</li>
+                        <li><code>OTHERS</code>: Catches all exceptions not handled explicitly.</li>
+                    </ul>
+
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Always include exception handling to make your code robust.</li>
+                        <li>Use <code>WHEN OTHERS</code> as a catch-all at the end of the exception block.</li>
+                        <li>Avoid hiding errors by providing meaningful error messages.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container plsql-triggers">
+                <div class="heading">
+                    <h3>Database Triggers in PL/SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        A <b>database trigger</b> is a stored PL/SQL block that is automatically executed (fired) in
+                        response to specific events on a table or view, such as INSERT, UPDATE, or DELETE operations.
+                        Triggers help enforce business rules, validate input data, audit data changes, and synchronize
+                        tables.
+                    </p>
+
+                    <h4>Syntax of a Trigger:</h4>
+                    <pre><code>
+              CREATE [OR REPLACE] TRIGGER trigger_name
+              {BEFORE | AFTER | INSTEAD OF} 
+              {INSERT | UPDATE | DELETE} 
+              ON table_name 
+              [FOR EACH ROW]
+              DECLARE
+                -- variable declarations
+              BEGIN
+                -- trigger body
+              END;
+                  </code></pre>
+
+                    <h4>Types of Triggers:</h4>
+                    <ul>
+                        <li><b>Based on Timing:</b>
+                            <ul>
+                                <li><b>BEFORE Trigger:</b> Fires before the triggering DML event.</li>
+                                <li><b>AFTER Trigger:</b> Fires after the triggering DML event.</li>
+                                <li><b>INSTEAD OF Trigger:</b> Used for views; fires instead of the DML statement.</li>
+                            </ul>
+                        </li>
+                        <li><b>Based on Level:</b>
+                            <ul>
+                                <li><b>Row-Level Trigger:</b> Executes once for each row affected.</li>
+                                <li><b>Statement-Level Trigger:</b> Executes once for the triggering SQL statement.</li>
+                            </ul>
+                        </li>
+                        <li><b>Based on Events:</b>
+                            <ul>
+                                <li>INSERT Trigger</li>
+                                <li>UPDATE Trigger</li>
+                                <li>DELETE Trigger</li>
+                                <li>Compound Trigger (from Oracle 11g onwards)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h4>Example: AFTER INSERT Trigger</h4>
+                    <pre><code>
+              CREATE OR REPLACE TRIGGER trg_after_insert
+              AFTER INSERT ON employees
+              FOR EACH ROW
+              BEGIN
+                DBMS_OUTPUT.PUT_LINE('New employee added: ' || :NEW.name);
+              END;
+                  </code></pre>
+
+                    <h4>Dropping a Trigger:</h4>
+                    <p>You can remove an existing trigger using the <code>DROP TRIGGER</code> statement:</p>
+                    <pre><code>
+              DROP TRIGGER trg_after_insert;
+                  </code></pre>
+
+                    <h4>Storage for Triggers:</h4>
+                    <ul>
+                        <li>Triggers are stored in the Oracle database in the data dictionary.</li>
+                        <li>They can be viewed using system views like <code>USER_TRIGGERS</code>,
+                            <code>ALL_TRIGGERS</code>, and <code>DBA_TRIGGERS</code>.</li>
+                        <li>Associated trigger source code is stored in the <code>USER_SOURCE</code> view.</li>
+                        <li>They do not consume significant space unless they involve large operations or logging
+                            mechanisms.</li>
+                    </ul>
+
+                    <h4>Best Practices:</h4>
+                    <ul>
+                        <li>Use triggers only when necessary to avoid performance issues.</li>
+                        <li>Keep trigger logic simple and efficient.</li>
+                        <li>Document the trigger logic clearly for maintainability.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="container plsql-triggers">
+                <div class="heading">
+                  <h3>PL/SQL Triggers Examples</h3>
+                </div>
+              
+                <div class="content">
+                  <h4>1. BEFORE INSERT Trigger</h4>
+                  <p><b>When it fires:</b> Before a new row is inserted into the table.</p>
+                  <p><b>Use case:</b> Validate or modify data before it's saved.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_before_insert
+              BEFORE INSERT ON employees
+              FOR EACH ROW
+              BEGIN
+                IF :NEW.salary &lt; 0 THEN
+                  RAISE_APPLICATION_ERROR(-20001, 'Salary cannot be negative');
+                END IF;
+              END;
+                  </code></pre>
+              
+                  <h4>2. AFTER INSERT Trigger</h4>
+                  <p><b>When it fires:</b> After a row is inserted.</p>
+                  <p><b>Use case:</b> Logging or auditing insert operations.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_after_insert
+              AFTER INSERT ON employees
+              FOR EACH ROW
+              BEGIN
+                INSERT INTO audit_log (action, emp_name, log_time)
+                VALUES ('INSERT', :NEW.name, SYSDATE);
+              END;
+                  </code></pre>
+              
+                  <h4>3. BEFORE UPDATE Trigger</h4>
+                  <p><b>When it fires:</b> Before a row is updated.</p>
+                  <p><b>Use case:</b> Prevent unauthorized field changes.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_before_update
+              BEFORE UPDATE ON employees
+              FOR EACH ROW
+              BEGIN
+                IF :OLD.designation = 'CEO' AND :NEW.designation &lt;&gt; 'CEO' THEN
+                  RAISE_APPLICATION_ERROR(-20002, 'CEO designation cannot be changed.');
+                END IF;
+              END;
+                  </code></pre>
+              
+                  <h4>4. AFTER UPDATE Trigger</h4>
+                  <p><b>When it fires:</b> After a row is updated.</p>
+                  <p><b>Use case:</b> Log who updated the record.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_after_update
+              AFTER UPDATE ON employees
+              FOR EACH ROW
+              BEGIN
+                INSERT INTO update_log (emp_id, update_time)
+                VALUES (:NEW.id, SYSDATE);
+              END;
+                  </code></pre>
+              
+                  <h4>5. BEFORE DELETE Trigger</h4>
+                  <p><b>When it fires:</b> Before a row is deleted.</p>
+                  <p><b>Use case:</b> Prevent deletion of specific records.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_before_delete
+              BEFORE DELETE ON employees
+              FOR EACH ROW
+              BEGIN
+                IF :OLD.designation = 'Manager' THEN
+                  RAISE_APPLICATION_ERROR(-20003, 'Managers cannot be deleted directly.');
+                END IF;
+              END;
+                  </code></pre>
+              
+                  <h4>6. AFTER DELETE Trigger</h4>
+                  <p><b>When it fires:</b> After a row is deleted.</p>
+                  <p><b>Use case:</b> Archive deleted data.</p>
+                  <pre><code>
+              CREATE OR REPLACE TRIGGER trg_after_delete
+              AFTER DELETE ON employees
+              FOR EACH ROW
+              BEGIN
+                INSERT INTO deleted_employees (id, name, removed_on)
+                VALUES (:OLD.id, :OLD.name, SYSDATE);
+              END;
+                  </code></pre>
+                </div>
+              </div>
+              
+
+        </section>
+
+
+    </main>
+</body>
+
+</html>

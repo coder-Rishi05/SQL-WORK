@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL-I Tutorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+    <!-- <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+
+        body {
+            background-color: #f9f9f9;
+            color: #2e2e2e;
+        }
+
+        header {
+            background-color: #004d40;
+            padding: 1.5rem 2rem;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        main {
+            padding: 1.5rem 5%;
+        }
+
+        section h2 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #004d40;
+        }
+
+        .container {
+            background-color: white;
+            border-left: 6px solid #009688;
+            border-radius: 16px;
+            padding: 1rem 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+            transition: 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.01);
+        }
+
+        .heading h3 {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #00695c;
+        }
+
+        .content>p {
+            margin-bottom: 1.5rem;
+            font-size: 1rem;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .data {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .left-data {
+            flex: 1 0 25%;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .right-data {
+            flex: 1 0 70%;
+            color: #555;
+        }
+
+
+
+
+
+
+        @media (max-width: 768px) {
+            .data {
+                flex-direction: column;
+            }
+
+            .left-data,
+            .right-data {
+                flex: 100%;
+            }
+
+            main {
+                padding: 2rem 1rem;
+            }
+        }
+    </style> -->
+
+
+</head>
+
+<body>
+    <header>
+        <h1>SQL-I Tutorial</h1>
+        <h3><a class="home" href="index.html">Back to home</a></h3>
+    </header>
+
+    <main>
+        <section>
+            <h2>Topics Under SQL-I</h2>
+            <div class="container data-types">
+                <div class="heading">
+                    <h3>Data Types</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        The data type of a column defines what value the column can hold: integer, character, money,
+                        date and time, binary, and so on.
+                    </p>
+
+                    <div class="data">
+                        <div class="left-data">Char(size):</div>
+                        <div class="right-data">
+                            A FIXED length string. Size specifies the column length in characters (0–255).
+                        </div>
+                    </div>
+
+                    <div class="data">
+                        <div class="left-data">Varchar(size):</div>
+                        <div class="right-data">
+                            A VARIABLE length string. Max size can go up to 65535 depending on row size.
+                        </div>
+                    </div>
+
+                    <div class="data">
+                        <div class="left-data">Int(size):</div>
+                        <div class="right-data">
+                            Integer value. Size is display width, not the actual value range.
+                        </div>
+                    </div>
+
+                    <div class="data">
+                        <div class="left-data">Date:</div>
+                        <div class="right-data">
+                            Stores date values in the format YYYY-MM-DD.
+                        </div>
+                    </div>
+
+                    <div class="data">
+                        <div class="left-data">Boolean:</div>
+                        <div class="right-data">
+                            Stores TRUE or FALSE. Internally stored as 1 and 0.
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container tables">
+                <div class="heading">
+                    <h3>Creating Tables</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        A table is a collection of related data entries that consists of rows and columns. It stores
+                        information in structured format.
+                    </p>
+
+                    <div class="data">
+                        To create table in sql Write <code><b>create table tableName</b></code> command
+                    </div>
+                    <pre>
+                        <code>
+                            create table std (
+                            stId int, 
+                            name varchar(20), 
+                            age int 
+                            );
+                        </code>
+                        Query OK, 0 rows affected (0.16 sec)
+                    </pre>
+                    <pre>
+                        <code>
+                            +------+---------+------+
+                            | stId | name    | age  |
+                            +------+---------+------+
+                            |  201 | Rishabh |   19 |
+                            +------+---------+------+
+                        </code>
+                    </pre>
+                </div>
+                <div class="data">
+                    <p>while creating the table we first need to give it columns and their datatypes. here students is
+                        its name. student,age,name are the columns with their respective datatypes. </p>
+                </div>
+            </div>
+            <div class="container tables from another">
+                <div class="heading">
+                    <h3>Creating a Table with data from
+                        Another table</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        To create a table from another table data
+                    </p>
+
+                    <div class="data">
+                        <ul>
+                            <li>Create the new table with a CREATE TABLE statement</li>
+                            <li>Use INSERT based on a SELECT from the old table:</li>
+                        </ul>
+                    </div>
+                    <pre>
+                        <code>
+                            INSERT INTO new_table
+                            SELECT * FROM old_table
+                        </code>
+                    </pre>
+                    example : insert into dup select * from std;
+                    <pre>
+                        <code>
+                            +------+---------+------+
+                            | stId | name    | age  |
+                            +------+---------+------+
+                            |  201 | Rishabh |   19 |
+                            +------+---------+------+
+                        </code>
+                    </pre>
+                </div>
+
+            </div>
+            <div class="container Inserting Values into a Table">
+                <div class="heading">
+                    <h3> Inserting Values into a Table</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        To Insert values in a table we use <b><i>insert command.</i></b>
+                    </p>
+
+                    <div class="data">
+                        <ul>
+                            <li>Create the new table with a CREATE TABLE statement</li>
+                            <li>use insert command to insert values with respect to the datatypes.</li>
+                        </ul>
+                    </div>
+                    <pre>
+                    <code>
+                        insert into tableName values ();
+                    </code>
+                </pre>
+                    example : insert into std values (201,'Rishabh',19);
+                    <pre>
+                    <code>
+                        +------+---------+------+
+                        | stId | name    | age  |
+                        +------+---------+------+
+                        |  201 | Rishabh |   19 |
+                        +------+---------+------+
+                    </code>
+                </pre>
+                </div>
+            </div>
+            <div class="container updating Values into a Table">
+                <div class="heading">
+                    <h3> Updating Command </h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        To update values in a table we use <b><i><u>update</u> </i></b> command. and a
+                        <b><i></i><u>set</u> </i></b> keyword It is a DML command.
+                    </p>
+
+                    <pre>
+                    <code>
+                        update  tableName set colName = ' values';
+                    </code>
+                </pre>
+                    To update the name of the student
+                    example : update table set name = 'rishi';
+                    <pre>
+                    <code>
+                        +------+-------+------+
+                        | stId | name  | age  |
+                        +------+-------+------+
+                        |  201 | rishi |   19 |
+                        +------+-------+------+
+                    </code>
+                </pre>
+
+                </div>
+                <div class="data">
+                    <p>we can also select a specific data using <u><b><i>where clause</i></b></u> which value we want to
+                        update. </p>
+
+                    <p> example : update table set name = 'ajay' where age = 19 ;</p>
+
+                </div>
+
+                <pre>
+                <code>
+                    +------+-------+------+
+                    | stId | name  | age  |
+                    +------+-------+------+
+                    |  201 | ajay |   19  |
+                    +------+-------+------+
+                </code>
+            </pre>
+            </div>
+            <div class="container deleting Values into a Table">
+                <div class="heading">
+                    <h3> Delete and Drop Command (Row & Columns) </h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        If i want to delete values in a table then we can use <b><i><u>Delete</u> </i></b> command. But
+                        to delete the column i need to use <b><i><u>Drop command</u></i></b></>. The drop command work
+                        diffrently then the delete command we need to use the <b>table and alter keyword</b> with it.
+                    </p>
+                    <pre>
+                    <code>
+                        delete  from tableName where age = '';
+                        +------+-------+------+
+                        | stId | name  | age  |
+                        +------+-------+------+
+                        |  201 | rishi |   19 |
+                        |  202 | ajay  |   21 |
+                        +------+-------+------+
+                    </code>
+                </pre>
+                    To delete the name of the student <br><br>
+                    example : <b>delete from dup where age = 19;</b>
+                    <pre>
+
+                        Output :- 
+                    <code>
+                        +------+------+------+
+                        | stId | name | age  |
+                        +------+------+------+
+                        |  202 | ajay |   21 |
+                        +------+------+------+
+                    </code>
+                </pre>
+                    </pre>
+                    To Drop the column of the student <br><br>
+
+                    <pre>
+                        example :  alter table tableName drop age; 
+
+                       <b> alter table dup drop age;</b>
+                        Output :- 
+                    <code>
+                        +------+------+
+                        | stId | name |
+                        +------+------+
+                        |  202 | ajay |
+                        +------+------+
+                    </code>
+                </pre>
+
+
+
+                </div>
+            </div>
+            <div class="container conditionals">
+                <div class="heading">
+                    <h3>Conditional Retrieval of Rows</h3>
+                </div>
+
+                <div class="condition">
+                    <div class="left">
+                        <div class="content">
+                            <p>
+                                To see the data of a table, we use the <b>SELECT</b> command. But by default, it gives
+                                all the rows of the table.
+                                <br />
+                                To retrieve specific rows, we use the <b><u><i>WHERE</i></u></b> clause combined with
+                                logical and comparison <b>operators</b>.
+                            </p>
+
+                            <p><b>Types of operators in SQL with examples:</b></p>
+
+                            <ul>
+                                <li><b>&gt;</b> (Greater than)<br>
+                                    <code>SELECT * FROM students WHERE marks &gt; 70;</code><br>
+                                    ➤ Shows students who scored more than 70 marks.
+                                </li><br>
+
+                                <li><b>&lt;</b> (Less than)<br>
+                                    <code>SELECT * FROM products WHERE price &lt; 100;</code><br>
+                                    ➤ Fetches products that cost less than 100.
+                                </li><br>
+
+                                <li><b>&lt;=</b> (Less than or equal to)<br>
+                                    <code>SELECT * FROM employees WHERE age &lt;= 30;</code><br>
+                                    ➤ Shows employees aged 30 or below.
+                                </li><br>
+
+                                <li><b>&gt;=</b> (Greater than or equal to)<br>
+                                    <code>SELECT * FROM orders WHERE quantity &gt;= 5;</code><br>
+                                    ➤ Finds orders with 5 or more items.
+                                </li><br>
+
+                                <li><b>=</b> (Equal to)<br>
+                                    <code>SELECT * FROM users WHERE city = 'Delhi';</code><br>
+                                    ➤ Retrieves users from Delhi.
+                                </li><br>
+
+                                <li><b>AND</b> (Both conditions must be true)<br>
+                                    <code>SELECT * FROM students WHERE marks &gt; 80 AND age &lt; 18;</code><br>
+                                    ➤ Students who scored above 80 and are younger than 18.
+                                </li><br>
+
+                                <li><b>OR</b> (Either condition is true)<br>
+                                    <code>SELECT * FROM books WHERE price &lt; 100 OR author = 'John';</code><br>
+                                    ➤ Books under ₹100 or written by John.
+                                </li><br>
+
+                                <li><b>NOT</b> (Negates a condition)<br>
+                                    <code>SELECT * FROM customers WHERE NOT city = 'Mumbai';</code><br>
+                                    ➤ Shows customers not from Mumbai.
+                                </li><br>
+
+                                <li><b>IS</b> (Checks for NULL)<br>
+                                    <code>SELECT * FROM orders WHERE delivery_date IS NULL;</code><br>
+                                    ➤ Orders that have no delivery date yet.
+                                </li><br>
+
+                                <li><b>IN</b> (Matches any in a list)<br>
+                                    <code>SELECT * FROM users WHERE country IN ('India', 'USA', 'UK');</code><br>
+                                    ➤ Users from India, USA, or UK.
+                                </li><br>
+
+                                <li><b>IS NOT</b> (Not NULL)<br>
+                                    <code>SELECT * FROM tasks WHERE status IS NOT NULL;</code><br>
+                                    ➤ Tasks that have a status assigned.
+                                </li><br>
+
+                                <li><b>NOT IN</b> (Excludes a list)<br>
+                                    <code>SELECT * FROM users WHERE id NOT IN (1, 2, 3);</code><br>
+                                    ➤ Users whose IDs are not 1, 2, or 3.
+                                </li><br>
+
+                                <li><b>BETWEEN</b> (Within a range)<br>
+                                    <code>SELECT * FROM products WHERE price BETWEEN 100 AND 500;</code><br>
+                                    ➤ Products that cost between ₹100 and ₹500 (inclusive).
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="container Pattern">
+                <div class="heading">
+                    <h3>Matching a Pattern from a Table in SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        To match a pattern in SQL, we use the <b><i><u>LIKE</u></i></b> operator.<br><br>
+                        It is often used with wildcards:
+                    <ul>
+                        <li><b>%</b> → matches any number of characters (including zero)</li>
+                        <li><b>_</b> → matches exactly one character</li>
+                    </ul>
+                    </p>
+
+                    <p><b>Example Table:</b></p>
+                    <pre><code>
+            +------+--------+--------+
+            | stId | name   | age    |
+            +------+--------+--------+
+            | 201  | Rishi  | 19     |
+            | 202  | Ajay   | 21     |
+            | 203  | Rina   | 22     |
+            | 204  | Ritesh | 20     |
+            +------+--------+--------+
+                    </code></pre>
+
+                    <p><b>Example 1:</b> Select names starting with 'Ri'</p>
+                    <pre><code>
+            SELECT * FROM students WHERE name LIKE 'Ri%';
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +------+--------+------+
+            | stId | name   | age  |
+            +------+--------+------+
+            | 201  | Rishi  | 19   |
+            | 204  | Ritesh | 20   |
+            +------+--------+------+
+                    </code></pre>
+
+                    <p><b>Example 2:</b> Select names ending with 'a'</p>
+                    <pre><code>
+            SELECT * FROM students WHERE name LIKE '%a';
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +------+--------+------+
+            | stId | name   | age  |
+            +------+--------+------+
+            | 203  | Rina   | 22   |
+            +------+--------+------+
+                    </code></pre>
+
+                    <p><b>Example 3:</b> Select names with 5 characters</p>
+                    <pre><code>
+            SELECT * FROM students WHERE name LIKE '_____';
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +------+--------+------+
+            | stId | name   | age  |
+            +------+--------+------+
+            | 201  | Rishi  | 19   |
+            | 202  | Ajay   | 21   |
+            | 204  | Ritesh | 20   |
+            +------+--------+------+
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="container ordering">
+                <div class="heading">
+                    <h3>Ordering the Result of a Query & Aggregate Functions</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        To sort the results returned by a query, we use the <b><i><u>ORDER BY</u></i></b> clause.
+                        <br>
+                        You can sort in:
+                    <ul>
+                        <li><b>ASC</b> – Ascending order (default)</li>
+                        <li><b>DESC</b> – Descending order</li>
+                    </ul>
+                    </p>
+
+                    <p><b>Example SQL Table:</b></p>
+                    <pre><code>
+            CREATE TABLE students (
+                stId INT,
+                name VARCHAR(50),
+                class VARCHAR(20),
+                marks INT
+            );
+            
+            INSERT INTO students (stId, name, class, marks) VALUES
+            (101, 'Riya', 'BCA-I', 88),
+            (102, 'Ajay', 'BCA-II', 72),
+            (103, 'Meena', 'BCA-I', 90),
+            (104, 'Raj', 'BCA-II', 60),
+            (105, 'Ayesha', 'BCA-I', 85);
+                    </code></pre>
+
+                    <p><b>Displayed Table:</b></p>
+                    <pre><code>
+            +------+--------+--------+--------+
+            | stId | name   | class  | marks  |
+            +------+--------+--------+--------+
+            | 101  | Riya   | BCA-I  |   88   |
+            | 102  | Ajay   | BCA-II |   72   |
+            | 103  | Meena  | BCA-I  |   90   |
+            | 104  | Raj    | BCA-II |   60   |
+            | 105  | Ayesha | BCA-I  |   85   |
+            +------+--------+--------+--------+
+                    </code></pre>
+
+                    <p><b>Example 1:</b> Order students by marks in ascending order</p>
+                    <pre><code>
+            SELECT * FROM students ORDER BY marks;
+                    </code></pre>
+
+                    <p><b>Example 2:</b> Order students by name in descending order</p>
+                    <pre><code>
+            SELECT * FROM students ORDER BY name DESC;
+                    </code></pre>
+
+                    <hr>
+
+                    <p>
+                        <b>Aggregate Functions</b> are used to perform a calculation on a set of values and return a
+                        single value.
+                        <br>Common aggregate functions include:
+                    <ul>
+                        <li><b>COUNT()</b> – Returns the number of rows</li>
+                        <li><b>SUM()</b> – Returns the total sum</li>
+                        <li><b>AVG()</b> – Returns the average value</li>
+                        <li><b>MAX()</b> – Returns the maximum value</li>
+                        <li><b>MIN()</b> – Returns the minimum value</li>
+                    </ul>
+                    </p>
+
+                    <p><b>Example 3:</b> Count total students</p>
+                    <pre><code>
+            SELECT COUNT(*) FROM students;
+                    </code></pre>
+
+                    <p><b>Example 4:</b> Find average marks</p>
+                    <pre><code>
+            SELECT AVG(marks) FROM students;
+                    </code></pre>
+
+                    <p><b>Example 5:</b> Get the highest and lowest marks</p>
+                    <pre><code>
+            SELECT MAX(marks), MIN(marks) FROM students;
+                    </code></pre>
+
+                    <p><b>Example 6:</b> Total sum of marks</p>
+                    <pre><code>
+            SELECT SUM(marks) FROM students;
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="container grouping">
+                <div class="heading">
+                    <h3>Grouping the Result of a Query</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        In SQL, the <b><i><u>GROUP BY</u></i></b> clause is used to group rows that have the same values
+                        into summary rows.
+                        <br>
+                        It is often used with aggregate functions like <b>COUNT(), SUM(), AVG(), MAX(), MIN()</b>.
+                    </p>
+
+                    <p><b>Example SQL Table:</b></p>
+                    <pre><code>
+            +------+--------+--------+--------+
+            | stId | name   | class  | marks  |
+            +------+--------+--------+--------+
+            | 101  | Riya   | BCA-I  |   88   |
+            | 102  | Ajay   | BCA-II |   72   |
+            | 103  | Meena  | BCA-I  |   90   |
+            | 104  | Raj    | BCA-II |   60   |
+            | 105  | Ayesha | BCA-I  |   85   |
+            | 106  | Arjun  | BCA-II |   78   |
+            +------+--------+--------+--------+
+                    </code></pre>
+
+                    <p><b>Example 1:</b> Group students by class and count them</p>
+                    <pre><code>
+            SELECT class, COUNT(*) AS total_students
+            FROM students
+            GROUP BY class;
+                    </code></pre>
+
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+----------------+
+            | class  | total_students |
+            +--------+----------------+
+            | BCA-I  |       3        |
+            | BCA-II |       3        |
+            +--------+----------------+
+                    </code></pre>
+
+                    <p><b>Example 2:</b> Find average marks of each class</p>
+                    <pre><code>
+            SELECT class, AVG(marks) AS avg_marks
+            FROM students
+            GROUP BY class;
+                    </code></pre>
+
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+------------+
+            | class  | avg_marks |
+            +--------+------------+
+            | BCA-I  |    87.66   |
+            | BCA-II |    70.00   |
+            +--------+------------+
+                    </code></pre>
+
+                    <p><b>Example 3:</b> Show total marks by class</p>
+                    <pre><code>
+            SELECT class, SUM(marks) AS total_marks
+            FROM students
+            GROUP BY class;
+                    </code></pre>
+
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+-------------+
+            | class  | total_marks |
+            +--------+-------------+
+            | BCA-I  |     263     |
+            | BCA-II |     210     |
+            +--------+-------------+
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="container">
+                <div class="heading">
+                    <h3>Creation and Deletion of Views in SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        A <b><i>View</i></b> in SQL is a virtual table based on the result of a SQL query. It can
+                        simplify complex queries and provide a layer of security.
+                    </p>
+
+                    <p><b>To create a view:</b></p>
+                    <pre><code>
+                        CREATE VIEW student_view AS
+                        SELECT name, marks
+                        FROM students
+                        WHERE marks > 75;
+                    </code></pre>
+
+                    <p><b> Sample Data in <code>students</code> Table:</b></p>
+                    <pre>
+                        SELECT * FROM student_view;
+                        <code>
+                    +----+--------+-------+
+                    | id | name   | marks |
+                    +----+--------+-------+
+                    | 1  | Raj    | 78    |
+                    | 2  | Priya  | 92    |
+                    | 3  | Ajay   | 65    |
+                    | 4  | Meena  | 88    |
+                    +----+--------+-------+
+                    </code></pre>
+
+                    <p><b> Output of <code>student_view</code>:</b></p>
+                    <pre><code>
+                        +--------+-------+
+                        | name   | marks |
+                        +--------+-------+
+                        | Raj    | 78    |
+                        | Priya  | 92    |
+                        | Meena  | 88    |
+                        +--------+-------+
+                    </code></pre>
+
+                    <p>
+                        This view filters only the students with marks greater than 75.
+                    </p>
+
+                    <p><b>To delete (drop) a view:</b></p>
+                    <pre><code>
+            DROP VIEW student_view;
+                    </code></pre>
+
+                    <p><b>Output:</b></p>
+                    <pre><code>
+                    Query OK, 0 rows affected
+                    </code></pre>
+                    <p>The view <code>student_view</code> has been removed successfully.</p>
+                </div>
+            </div>
+
+            <div class="container transaction">
+                <div class="heading">
+                    <h3>GRANT, REVOKE, COMMIT, and ROLLBACK Commands in SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        SQL provides control over access and transactions using the GRANT, REVOKE, COMMIT, and ROLLBACK
+                        commands. Below are the descriptions and examples.
+                    </p>
+
+                    <h4>GRANT Command</h4>
+                    <p>
+                        The GRANT command is used to give privileges to users.
+                    </p>
+                    <p><b>Syntax:</b></p>
+                    <pre><code>
+            GRANT privilege_name ON table_name TO user_name;
+                    </code></pre>
+                    <p><b>Example:</b></p>
+                    <pre><code>
+            GRANT SELECT, INSERT ON students TO user1;
+                    </code></pre>
+
+                    <h4>REVOKE Command</h4>
+                    <p>
+                        The REVOKE command is used to remove access rights given to a user.
+                    </p>
+                    <p><b>Syntax:</b></p>
+                    <pre><code>
+            REVOKE privilege_name ON table_name FROM user_name;
+                    </code></pre>
+                    <p><b>Example:</b></p>
+                    <pre><code>
+            REVOKE INSERT ON students FROM user1;
+                    </code></pre>
+
+                    <h4>COMMIT Command</h4>
+                    <p>
+                        The COMMIT command is used to permanently save any changes made by the current transaction.
+                    </p>
+                    <p><b>Syntax:</b></p>
+                    <pre><code>
+            COMMIT;
+                    </code></pre>
+                    <p><b>Example:</b></p>
+                    <pre><code>
+            UPDATE students SET marks = 85 WHERE id = 1;
+            COMMIT;
+                    </code></pre>
+
+                    <p><b>Before COMMIT:</b></p>
+                    <pre><code>
+            +----+--------+-------+
+            | id | name   | marks |
+            +----+--------+-------+
+            | 1  | Rishi  | 78    |
+            +----+--------+-------+
+                    </code></pre>
+
+                    <p><b>After COMMIT:</b></p>
+                    <pre><code>
+            +----+--------+-------+
+            | id | name   | marks |
+            +----+--------+-------+
+            | 1  | Rishi  | 85    |
+            +----+--------+-------+
+                    </code></pre>
+
+                    <h4>ROLLBACK Command</h4>
+                    <p>
+                        The ROLLBACK command is used to undo transactions that have not been committed to the database.
+                    </p>
+                    <p><b>Syntax:</b></p>
+                    <pre><code>
+            ROLLBACK;
+                    </code></pre>
+                    <p><b>Example:</b></p>
+                    <pre><code>
+            UPDATE students SET marks = 95 WHERE id = 2;
+            ROLLBACK;
+                    </code></pre>
+
+                    <p><b>Before ROLLBACK:</b></p>
+                    <pre><code>
+            +----+--------+-------+
+            | id | name   | marks |
+            +----+--------+-------+
+            | 2  | Ajay   | 88    |
+            +----+--------+-------+
+                    </code></pre>
+
+                    <p><b>After ROLLBACK (No change committed):</b></p>
+                    <pre><code>
+            +----+--------+-------+
+            | id | name   | marks |
+            +----+--------+-------+
+            | 2  | Ajay   | 88    |
+            +----+--------+-------+
+                    </code></pre>
+                </div>
+            </div>
+
+            <div class="container sql-functions">
+                <div class="heading">
+                    <h3>SQL Functions: Character, Date, and Group Functions</h3>
+                </div>
+
+                <div class="content">
+
+                    <h4>Character Functions</h4>
+                    <p>
+                        Character functions operate on character (string) data types and return character or numeric
+                        values.
+                    </p>
+
+                    <p><b>1. UPPER()</b> – Converts text to uppercase</p>
+                    <pre><code>
+            SELECT UPPER('sql tutorial');
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            SQL TUTORIAL
+                    </code></pre>
+
+                    <p><b>2. LOWER()</b> – Converts text to lowercase</p>
+                    <pre><code>
+            SELECT LOWER('SQL TUTORIAL');
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            sql tutorial
+                    </code></pre>
+
+                    <p><b>3. LENGTH()</b> – Returns the length of a string</p>
+                    <pre><code>
+            SELECT LENGTH('Database');
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            8
+                    </code></pre>
+
+                    <hr>
+
+                    <h4>Date Functions</h4>
+                    <p>
+                        Date functions work with date values and return formatted date or calculations.
+                    </p>
+
+                    <p><b>1. CURRENT_DATE</b> – Returns current system date</p>
+                    <pre><code>
+            SELECT CURRENT_DATE;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            2025-04-10
+                    </code></pre>
+
+                    <p><b>2. NOW()</b> – Returns current date and time</p>
+                    <pre><code>
+            SELECT NOW();
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            2025-04-10 15:42:00
+                    </code></pre>
+
+                    <p><b>3. DATEDIFF()</b> – Finds difference between two dates</p>
+                    <pre><code>
+            SELECT DATEDIFF('2025-05-10', '2025-04-10');
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            30
+                    </code></pre>
+
+                    <hr>
+
+                    <h4>Group Functions (Aggregate Functions)</h4>
+                    <p>
+                        Group functions perform a calculation on a set of values and return a single value.
+                    </p>
+
+                    <p><b>Table: students</b></p>
+                    <pre><code>
+            +----+--------+--------+
+            | id | name   | marks  |
+            +----+--------+--------+
+            | 1  | Rishi  | 78     |
+            | 2  | Ajay   | 88     |
+            | 3  | Priya  | 90     |
+            +----+--------+--------+
+                    </code></pre>
+
+                    <p><b>1. COUNT()</b> – Counts number of records</p>
+                    <pre><code>
+            SELECT COUNT(*) FROM students;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            3
+                    </code></pre>
+
+                    <p><b>2. AVG()</b> – Returns average of values</p>
+                    <pre><code>
+            SELECT AVG(marks) FROM students;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            85.3
+                    </code></pre>
+
+                    <p><b>3. MAX() and MIN()</b> – Returns highest and lowest values</p>
+                    <pre><code>
+            SELECT MAX(marks), MIN(marks) FROM students;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            MAX  MIN
+            90   78
+                    </code></pre>
+
+                </div>
+            </div>
+
+            <div class="container sql-constraints">
+                <div class="heading">
+                    <h3>SQL Constraints</h3>
+                </div>
+                <div class="content">
+                    <p>SQL constraints are used to specify rules for data in a table.</p>
+
+                    <h4>1. PRIMARY KEY</h4>
+                    <p>Ensures each row has a unique, non-null value.</p>
+                    <pre><code>
+                    CREATE TABLE std (
+                        roll INT PRIMARY KEY,
+                        name VARCHAR(20),
+                        dob date,
+                        city varchar(20),
+                        class varchar(20),
+                        age int
+                    );
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+                        +-------+-------------+------+-----+---------+-------+
+                        | Field | Type        | Null | Key | Default | Extra |
+                        +-------+-------------+------+-----+---------+-------+
+                        | roll  | int         | NO   | PRI | NULL    |       |
+                        | name  | varchar(20) | NO   |     | NULL    |       |
+                        | dob   | date        | YES  |     | NULL    |       |
+                        | city  | varchar(20) | YES  |     | NULL    |       |
+                        | class | varchar(20) | YES  |     | NULL    |       |
+                        | age   | int         | YES  |     | NULL    |       |
+                        +-------+-------------+------+-----+---------+-------+
+                        
+                    </code></pre>
+
+                    <h4>2. FOREIGN KEY</h4>
+                    <p>Links one table's column to another table's primary key.</p>
+                    <pre><code>
+                        create table fees(rollno int,paid varchar(10), foreign key (rollno) references bca2(roll));
+                    </code></pre>
+                    example : desc fees;
+                    <pre><code>
+                        +--------+-------------+------+-----+---------+-------+
+                        | Field  | Type        | Null | Key | Default | Extra |
+                        +--------+-------------+------+-----+---------+-------+
+                        | rollno | int         | YES  | MUL | NULL    |       |
+                        | paid   | varchar(10) | YES  |     | NULL    |       |
+                        +--------+-------------+------+-----+---------+-------+
+
+                        to remove foriegn key :- 
+
+                        Name of the key => fees_ibfk_1. it is given by default by the sql.
+
+                        to remove forign key using alter command.
+                        alter table fees drop foreign key fees_ibfk_1;
+
+                        to add foriegn key using alter command.
+                        alter table fees add foreign key (rollno) references bca2(roll);
+
+
+                        to check the name of the foriegn key :-  CONSTRAINT `fees_ibfk_1`
+
+                        if i want to give foriegn key name by myself then ,
+                        alter table fees add constraint fk_roll foreign key (rollno) references bca2(roll);
+
+                        
+                    </code></pre>
+
+                    <h4>3. NULL and NOT NULL</h4>
+                    <p>`NOT NULL` ensures a column cannot have a NULL value.</p>
+                    <pre><code>
+            CREATE TABLE employee (
+                emp_id INT,
+                emp_name VARCHAR(50) NOT NULL
+            );
+                    </code></pre>
+
+                    <h4>4. UNIQUE</h4>
+                    <p>Ensures all values in a column are different.</p>
+                    <pre><code>
+            CREATE TABLE user (
+                user_id INT,
+                email VARCHAR(100) UNIQUE
+            );
+                    </code></pre>
+
+                    <h4>5. CHECK</h4>
+                    <p>Ensures the values in a column meet a specific condition.</p>
+                    <pre><code>
+            CREATE TABLE account (
+                acc_id INT,
+                balance INT CHECK (balance >= 1000)
+            );
+                    </code></pre>
+
+                    <h4>6. AUTO_INCREMENT</h4>
+                    <p>Automatically increments the value of a column with each new row.</p>
+                    <pre><code>
+            CREATE TABLE customer (
+                cust_id INT AUTO_INCREMENT,
+                cust_name VARCHAR(50),
+                PRIMARY KEY (cust_id)
+            );
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +---------+------------+
+            | cust_id | cust_name  |
+            +---------+------------+
+            |       1 | Riya       |
+            |       2 | Mohit      |
+            +---------+------------+
+                    </code></pre>
+                </div>
+            </div>
+
+        </section>
+
+
+    </main>
+</body>
+
+</html>

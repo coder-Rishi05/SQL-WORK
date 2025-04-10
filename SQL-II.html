@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL-II Tutorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+  
+</head>
+
+<body>
+    <header>
+        <h1>SQL-II Tutorial</h1>
+        <h3><a class="home" href="index.html">Back to home</a></h3>
+    </header>
+
+    <main>
+        <section>
+            <h2>Topics Under SQL-II</h2>
+
+
+            <div class="container sql-joins">
+                <div class="heading">
+                    <h3>SQL Joins</h3>
+                </div>
+                <div class="content">
+                    <p>SQL Joins are used to combine rows from two or more tables based on a related column.</p>
+
+                    <h4>1. INNER JOIN</h4>
+                    <p>Returns only the rows with matching values in both tables.</p>
+                    <pre><code>
+            SELECT students.name, courses.course
+            FROM students
+            INNER JOIN courses ON students.id = courses.student_id;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+--------+
+            | name   | course |
+            +--------+--------+
+            | Rishi  | Java   |
+            | Ajay   | Python |
+            +--------+--------+
+                    </code></pre>
+
+                    <h4>2. LEFT JOIN</h4>
+                    <p>Returns all records from the left table and matched records from the right table. If no match,
+                        NULL values appear.</p>
+                    <pre><code>
+            SELECT students.name, courses.course
+            FROM students
+            LEFT JOIN courses ON students.id = courses.student_id;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+--------+
+            | name   | course |
+            +--------+--------+
+            | Rishi  | Java   |
+            | Ajay   | Python |
+            | Priya  | NULL   |
+            +--------+--------+
+                    </code></pre>
+
+                    <h4>3. RIGHT JOIN</h4>
+                    <p>Returns all records from the right table and matched records from the left table.</p>
+                    <pre><code>
+            SELECT students.name, courses.course
+            FROM students
+            RIGHT JOIN courses ON students.id = courses.student_id;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+--------+
+            | name   | course |
+            +--------+--------+
+            | Rishi  | Java   |
+            | Ajay   | Python |
+            | NULL   | PHP    |
+            +--------+--------+
+                    </code></pre>
+
+                    <h4>4. FULL OUTER JOIN</h4>
+                    <p>Returns all records when there is a match in either left or right table.</p>
+                    <pre><code>
+            SELECT students.name, courses.course
+            FROM students
+            FULL OUTER JOIN courses ON students.id = courses.student_id;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+--------+
+            | name   | course |
+            +--------+--------+
+            | Rishi  | Java   |
+            | Ajay   | Python |
+            | Priya  | NULL   |
+            | NULL   | PHP    |
+            +--------+--------+
+                    </code></pre>
+
+                    <h4>5. CROSS JOIN</h4>
+                    <p>Returns the Cartesian product of both tables (every combination).</p>
+                    <pre><code>
+            SELECT students.name, courses.course
+            FROM students
+            CROSS JOIN courses;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+--------+
+            | name   | course |
+            +--------+--------+
+            | Rishi  | Java   |
+            | Rishi  | Python |
+            | Rishi  | PHP    |
+            | Ajay   | Java   |
+            | Ajay   | Python |
+            | Ajay   | PHP    |
+            | Priya  | Java   |
+            | Priya  | Python |
+            | Priya  | PHP    |
+            +--------+--------+
+                    </code></pre>
+
+                    <h4>6. SELF JOIN</h4>
+                    <p>A table joins with itself to compare rows within the same table.</p>
+                    <pre><code>
+            SELECT A.name AS Student1, B.name AS Student2
+            FROM students A, students B
+            WHERE A.id != B.id;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +----------+----------+
+            | Student1 | Student2 |
+            +----------+----------+
+            | Rishi    | Ajay     |
+            | Rishi    | Priya    |
+            | Ajay     | Rishi    |
+            | Ajay     | Priya    |
+            | Priya    | Rishi    |
+            | Priya    | Ajay     |
+            +----------+----------+
+                    </code></pre>
+                </div>
+            </div>
+
+
+            <div class="container sql-set-operators">
+                <div class="heading">
+                    <h3>SQL Set Operators: UNION, INTERSECT, MINUS</h3>
+                </div>
+                <div class="content">
+                    <p>Set operators in SQL are used to combine the results of two or more `SELECT` statements.</p>
+
+                    <h4>1. UNION</h4>
+                    <p>Combines results from two queries and removes duplicates.</p>
+                    <pre><code>
+            SELECT name FROM table1
+            UNION
+            SELECT name FROM table2;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+
+            | name   |
+            +--------+
+            | Rishi  |
+            | Ajay   |
+            | Priya  |
+            +--------+
+                    </code></pre>
+
+                    <h4>2. INTERSECT</h4>
+                    <p>Returns only the rows that are common in both result sets.</p>
+                    <pre><code>
+            SELECT name FROM table1
+            INTERSECT
+            SELECT name FROM table2;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+
+            | name   |
+            +--------+
+            | Ajay   |
+            +--------+
+                    </code></pre>
+
+                    <h4>3. MINUS</h4>
+                    <p>Returns rows from the first query that are not in the second.</p>
+                    <pre><code>
+            SELECT name FROM table1
+            MINUS
+            SELECT name FROM table2;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+            +--------+
+            | name   |
+            +--------+
+            | Rishi  |
+            +--------+
+                    </code></pre>
+
+                    <p><b>Note:</b> Some databases like MySQL do not support INTERSECT and MINUS directly. Use `JOIN` or
+                        `NOT IN` instead for such cases.</p>
+                </div>
+            </div>
+
+            <div class="container nested-queries">
+                <div class="heading">
+                    <h3>Introduction to Nested Queries in SQL</h3>
+                </div>
+
+                <div class="content">
+                    <p>
+                        Nested Queries, also known as subqueries, are queries within another SQL
+                        query. They are used to perform operations that require multiple steps or
+                        to retrieve intermediate results.
+                    </p>
+
+                    <h4>Syntax:</h4>
+                    <pre><code>
+              SELECT column_name
+              FROM table_name
+              WHERE column_name = (SELECT column_name FROM table_name WHERE condition);
+                  </code></pre>
+
+                    <h4>Example Table: students</h4>
+                    <pre><code>
+              +--------+--------+-------+
+              | stId   | name   | marks |
+              +--------+--------+-------+
+              |  101   | Ajay   |   89  |
+              |  102   | Riya   |   93  |
+              |  103   | Mohan  |   76  |
+              +--------+--------+-------+
+                  </code></pre>
+
+                    <h4>Query:</h4>
+                    <p>Find the student(s) who scored the highest marks.</p>
+                    <pre><code>
+              SELECT name
+              FROM students
+              WHERE marks = (SELECT MAX(marks) FROM students);
+                  </code></pre>
+
+                    <h4>Output:</h4>
+                    <pre><code>
+              +--------+
+              | name   |
+              +--------+
+              | Riya   |
+              +--------+
+                  </code></pre>
+
+                    <p><b>Note:</b> Subqueries can be used with SELECT, INSERT, UPDATE, DELETE, and can return single or
+                        multiple rows depending on usage.</p>
+                </div>
+            </div>
+
+
+        </section>
+
+
+    </main>
+</body>
+
+</html>
