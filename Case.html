@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SQL-II Tutorial</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <header>
+        <h1>SQL-II Tutorial</h1>
+        <h3><a class="home" href="index.html">Back to home</a></h3>
+    </header>
+
+    <main>
+        <section>
+            <h2>SQL CASE STUDY</h2>
+
+
+            <div class="container " style="max-height: 650px;">
+
+                <div class="content">
+                    <p> Q. Create a student stable with name roll no and marks. You have to write queries to find the
+                        first second second and third student out of the table.
+
+                        The selected student should meet the following conditions to get prize : </p>
+
+                    <ul>
+                        <li>
+                            1. In every subject the studnet should have 60% marks and no fail and 0 Absent.
+                        </li>
+                        <li>
+                            2. In every subject marks > 60% first,second,third position if marks > 60% no position.
+                        </li>
+                        <li>
+                            3. If marks tied then check aggregate marks who have highest will be first.
+                        </li>
+                        <li>
+                            4. If If absent then A 0 marks.
+                        </li>
+                        <li>
+                            5. If two tied in aggregate marks then both will get the 1st , 2nd anf 3rd prize.
+                        </li>
+
+                    </ul>
+
+
+
+                    <h4>Table</h4>
+                    <pre>
+             Query to create table. 
+                        <code>
+              CREATE TABLE StudentMarks ( RollNo INT PRIMARY KEY, Name VARCHAR(50), 
+              Sub1Mark VARCHAR(10), Sub2Mark VARCHAR(10), Sub3Mark VARCHAR(10));
+                        </code>
+                    </pre>
+
+                    <pre><code>
+                         desc student_Marks;
+                        +----------+-------------+------+-----+---------+-------+
+                        | Field    | Type        | Null | Key | Default | Extra |
+                        +----------+-------------+------+-----+---------+-------+
+                        | RollNo   | int         | NO   | PRI | NULL    |       |
+                        | Name     | varchar(50) | YES  |     | NULL    |       |
+                        | Sub1Mark | varchar(10) | YES  |     | NULL    |       |
+                        | Sub2Mark | varchar(10) | YES  |     | NULL    |       |
+                        | Sub3Mark | varchar(10) | YES  |     | NULL    |       |
+                        +----------+-------------+------+-----+---------+-------+
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+             select *from student_Marks;
+            +--------+-----------+----------+----------+----------+
+            | RollNo | Name      | Sub1Mark | Sub2Mark | Sub3Mark |
+            +--------+-----------+----------+----------+----------+
+            |      1 | Rishi     | 65       | 92       | 79       |
+            |      2 | surya     | 67       | 91       | A        |
+            |      3 | Karan     | 32       | 45       | 50       |
+            |      4 | vikram    | 65       | 70       | 11       |
+            |      5 | Mukesh    | 88       | 23       | 89       |
+            |      6 | Simran    | 50       | 61       | 59       |
+            |      7 | Aman      | A        | 74       | 80       |
+            |      8 | Neeraj    | 54       | 48       | 35       |
+            |      9 | Manav     | 28       | 40       | 30       |
+            |     10 | Akhil     | 77       | 81       | 74       |
+            |     11 | Yash      | 91       | 89       | 94       |
+            |     12 | Ajeet     | 40       | 50       | 52       |
+            |     13 | Sujal     | 60       | 45       | 58       |
+            |     14 | Dev       | 55       | 62       | 49       |
+            |     15 | Priyanshu | 33       | 32       | 35       |
+            |     16 | Rahul     | 44       | A        | 67       |
+            |     17 | Sachin    | 92       | 90       | 95       |
+            |     18 | Kavya     | 64       | 72       | 71       |
+            |     19 | Ahay      | 69       | 86       | 45       |
+            |     20 | Soham     | A        | 89       | A        |
+            +--------+-----------+----------+----------+----------+
+                    </code></pre>
+
+
+                    <h4>1st Query</h4>
+
+                    <pre><code>
+                        SELECT RollNo, Name, Sub1Mark, Sub2Mark, Sub3Mark, 
+                        (CAST(Sub1Mark AS UNSIGNED)+CAST(Sub2Mark AS UNSIGNED)
+                        +CAST(Sub3Mark AS UNSIGNED)) AS Total, ROUND((CAST(Sub1Mark AS UNSIGNED)
+                        +CAST(Sub2Mark AS UNSIGNED)+CAST(Sub3Mark AS UNSIGNED))/3,2) 
+                        AS Percentage FROM Student_Marks WHERE Sub1Mark!='A' 
+                        AND Sub2Mark!='A' AND Sub3Mark!='A' AND CAST(Sub1Mark AS UNSIGNED)
+                        >=33 AND CAST(Sub2Mark AS UNSIGNED)>=33 AND CAST(Sub3Mark AS UNSIGNED)
+                        >=33 AND ((CAST(Sub1Mark AS UNSIGNED)+
+                        CAST(Sub2Mark AS UNSIGNED)+CAST(Sub3Mark AS UNSIGNED))/3)>60
+                         ORDER BY Total DESC LIMIT 3;
+                    </code></pre>
+                    <p><b>Output:</b></p>
+                    <pre><code>
+                        +--------+--------+----------+----------+----------+-------+------------+
+                        | RollNo | Name   | Sub1Mark | Sub2Mark | Sub3Mark | Total | Percentage |
+                        +--------+--------+----------+----------+----------+-------+------------+
+                        |     17 | Sachin | 92       | 90       | 95       |   277 |      92.33 |
+                        |     11 | Yash   | 91       | 89       | 94       |   274 |      91.33 |
+                        |      1 | Rishi  | 65       | 92       | 79       |   236 |      78.67 |
+                        +--------+--------+----------+----------+----------+-------+------------+
+                    </code></pre>
+                </div>
+                <h4>2nd Query</h4>
+
+                <pre><code>
+                        SELECT RollNo, Name, Sub1Mark,Sub2Mark, Sub3Mark, TotalMarks,CASE 
+                            WHEN Position = 1 THEN '1st'
+                            WHEN Position = 2 THEN '2nd'
+                            WHEN Position = 3 THEN '3rd'
+                            ELSE NULL
+                        END AS PositionLabel
+                        FROM (  SELECT RollNo, Name,Sub1Mark,Sub2Mark, Sub3Mark,
+                            (
+                                CASE WHEN Sub1Mark = 'A' THEN 0 ELSE CAST(Sub1Mark AS UNSIGNED) END +
+                                CASE WHEN Sub2Mark = 'A' THEN 0 ELSE CAST(Sub2Mark AS UNSIGNED) END +
+                                CASE WHEN Sub3Mark = 'A' THEN 0 ELSE CAST(Sub3Mark AS UNSIGNED) END
+                            ) AS TotalMarks, RANK() OVER (ORDER BY 
+                                (
+                                    CASE WHEN Sub1Mark = 'A' THEN 0 ELSE CAST(Sub1Mark AS UNSIGNED) END +
+                                    CASE WHEN Sub2Mark = 'A' THEN 0 ELSE CAST(Sub2Mark AS UNSIGNED) END +
+                                    CASE WHEN Sub3Mark = 'A' THEN 0 ELSE CAST(Sub3Mark AS UNSIGNED) END
+                                ) DESC ) AS Position FROM student_marks  WHERE
+                            Sub1Mark != 'A' AND
+                            Sub2Mark != 'A' AND
+                            Sub3Mark != 'A' AND
+                            CAST(Sub1Mark AS UNSIGNED) >= 60 AND
+                            CAST(Sub2Mark AS UNSIGNED) >= 60 AND
+                            CAST(Sub3Mark AS UNSIGNED) >= 60
+                    ) AS Ranked WHERE Position <= 3 ORDER BY Position;
+
+                    </code></pre>
+                <p><b>Output:</b></p>
+                <pre><code>
+                        +--------+--------+----------+----------+----------+------------+---------------+
+                        | RollNo | Name   | Sub1Mark | Sub2Mark | Sub3Mark | TotalMarks | PositionLabel |
+                        +--------+--------+----------+----------+----------+------------+---------------+
+                        |     17 | Sachin | 92       | 90       | 95       |        277 | 1st           |
+                        |     11 | Yash   | 91       | 89       | 94       |        274 | 2nd           |
+                        |      1 | Rishi  | 65       | 92       | 79       |        236 | 3rd           |
+                        +--------+--------+----------+----------+----------+------------+---------------+
+                    </code></pre>
+            </div>
+            </div>
+
+        </section>
+
+
+    </main>
+</body>
+
+</html>
